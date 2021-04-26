@@ -1,0 +1,23 @@
+{
+  "name": "peek",
+  "version": "1.0.0",
+  "description": "Distributed tracing using WebRTC",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.0.1",
+    "wrtc": "^0.4.7"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1"
+  }
+}

@@ -5,6 +5,7 @@ const { RTCPeerConnection } = require("wrtc");
  * @typedef PeekConsumerOpts
  * @type {object}
  * @property {IPeekSignaling} signaling
+ * @property {string|null} topicPrefix
  * */
 
 /**
@@ -27,6 +28,7 @@ class PeekConsumer extends EventEmitter {
         this.peerConnections = new Map();
         /** @type {Map<string, RTCDataChannel>} */
         this.dataChannels = new Map();
+        this.topicPrefix = opts.topicPrefix;
 
         this.init();
     }
@@ -58,7 +60,7 @@ class PeekConsumer extends EventEmitter {
         console.log("connecting", id, service);
         const peerConnection = new RTCPeerConnection();
         const channel = peerConnection.createDataChannel();
-        channel.addEventListener("message", (e) => this.emit("message", JSON.parse(e.data)));
+        channel.addEventListener("message", this.onMessage.bind(this));
         this.peerConnections.set(id, peerConnection);
         this.dataChannels.set(id, channel);
 
@@ -120,6 +122,23 @@ class PeekConsumer extends EventEmitter {
         }
     }
 
+    /**
+     * @private
+     */
+    onMessage(event) {
+        try {
+            const parsed = JSON.parse(event.data);
+            if (this.topicPrefix && !parsed.topic.startsWith(this.topicPrefix)) {
+                // drop messages we don't care about
+                return;
+            }
+
+            this.emit("message", parsed);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     close() {
         this.signaling.close();
     }
@@ -132,4 +151,5 @@ class PeekConsumer extends EventEmitter {
      * @property {PeekMessage} candidate
      * */
 }
+
 module.exports = PeekConsumer;

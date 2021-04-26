@@ -16,7 +16,7 @@ Producer side:
 
 ```js
 const Peek = require("peek");
-const peek = Peek.configureProducer({
+const peek = Peek.createProducer({
     service: "test",
     signalingUrl: "https://example.signaling.com",
     secret: "supersecret"
@@ -37,7 +37,7 @@ Consumer side:
 
 ```js
 const Peek = require("peek");
-const peek = Peek.configureConsumer({
+const peek = Peek.createConsumer({
     subscriptions: ["test"],
     signalingUrl: "https://example.signaling.com",
     secret: "supersecret"

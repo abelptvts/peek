@@ -68,6 +68,7 @@ class PeekProducer {
                     credential: "pass-1",
                 },
             ],
+            iceTransportPolicy: "relay",
         });
         this.peerConnections.set(from, peerConnection);
 

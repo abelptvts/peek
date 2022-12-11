@@ -58,17 +58,17 @@ class PeekProducer {
         const peerConnection = new RTCPeerConnection({
             iceServers: [
                 {
-                    urls: "turn:34.118.17.44:3478?transport=tcp",
+                    urls: "turn:34.118.17.44:3478?transport=TCP",
                     username: "user-1",
                     credential: "pass-1",
                 },
                 {
-                    urls: "turn:34.116.135.155:3478?transport=udp",
+                    urls: "turn:34.116.135.155:3478?transport=UDP",
                     username: "user-1",
                     credential: "pass-1",
                 },
             ],
-            // iceTransportPolicy: "relay",
+            iceTransportPolicy: "relay",
         });
         this.peerConnections.set(from, peerConnection);
 

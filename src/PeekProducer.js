@@ -113,12 +113,12 @@ class PeekProducer {
     /**
      * @private
      */
-    async onRemoteICECandidate(event, from) {
+    async onRemoteICECandidate({ candidate, from }) {
         if (!this.peerConnections.has(from)) {
             return;
         }
 
-        await this.peerConnections.get(from).addIceCandidate(event.candidate);
+        await this.peerConnections.get(from).addIceCandidate(candidate);
     }
 
     /**

@@ -58,7 +58,20 @@ class PeekConsumer extends EventEmitter {
             this.dataChannels.delete(id);
         }
         console.log("connecting", id, service);
-        const peerConnection = new RTCPeerConnection();
+        const peerConnection = new RTCPeerConnection({
+            iceServers: [
+                {
+                    urls: "turn:34.118.17.44:3478?transport=tcp",
+                    username: "user-1",
+                    credential: "pass-1",
+                },
+                {
+                    urls: "turn:34.116.135.155:3478?transport=udp",
+                    username: "user-1",
+                    credential: "pass-1",
+                },
+            ],
+        });
         const channel = peerConnection.createDataChannel();
         channel.addEventListener("message", this.onMessage.bind(this));
         this.peerConnections.set(id, peerConnection);

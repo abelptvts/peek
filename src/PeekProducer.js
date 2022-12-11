@@ -55,7 +55,20 @@ class PeekProducer {
             this.dataChannels.delete(from);
         }
         console.log("new connection", from);
-        const peerConnection = new RTCPeerConnection();
+        const peerConnection = new RTCPeerConnection({
+            iceServers: [
+                {
+                    urls: "turn:34.118.17.44:3478?transport=tcp",
+                    username: "user-1",
+                    credential: "pass-1",
+                },
+                {
+                    urls: "turn:34.116.135.155:3478?transport=udp",
+                    username: "user-1",
+                    credential: "pass-1",
+                },
+            ],
+        });
         this.peerConnections.set(from, peerConnection);
 
         peerConnection.addEventListener("datachannel", (e) => this.onDataChannel(from, e));
